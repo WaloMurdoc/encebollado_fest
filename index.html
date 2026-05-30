@@ -139,20 +139,20 @@
 
         /* ── TABLE ── */
         .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        table { width: 100%; border-collapse: collapse; min-width: 300px; }
+        table { width: 100%; border-collapse: collapse; min-width: 260px; }
 
         thead th {
             background: var(--teal-dk); color: #E0F2FE;
-            padding: 10px 12px; text-align: left;
-            font-weight: 700; font-size: 0.74em;
-            letter-spacing: 0.05em; white-space: nowrap;
+            padding: 9px 10px; text-align: left;
+            font-weight: 700; font-size: 0.72em;
+            letter-spacing: 0.04em; white-space: nowrap;
         }
         thead th:first-child { border-radius: 10px 0 0 0; }
         thead th:last-child  { border-radius: 0 10px 0 0; }
 
         tbody td {
-            padding: 10px 12px; border-bottom: 1px solid var(--border);
-            font-size: 0.83em; vertical-align: middle;
+            padding: 9px 10px; border-bottom: 1px solid var(--border);
+            font-size: 0.81em; vertical-align: middle;
         }
         tbody tr:last-child td { border-bottom: none; }
         tbody tr:hover td { background: #F0FDFA; }
@@ -210,21 +210,23 @@
         .kpi-value { font-size: 1.55em; font-weight: 800; color: var(--slate); line-height: 1; }
         .kpi-sub   { font-size: 0.62em; color: var(--muted); margin-top: 2px; }
 
-        /* ── GRIDS — mobile first ── */
+        /* ── GRIDS — mobile first: 1 col, desktop: 2 col ── */
         .grid-2 { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
 
         /* ── HORIZONTAL BARS ── */
         .hbar-list { display: flex; flex-direction: column; gap: 10px; }
-        .hbar-label { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 4px; }
-        .hbar-name  { font-size: 0.82em; color: var(--slate); font-weight: 500; flex: 1; line-height: 1.3; }
-        .hbar-count { font-size: 0.82em; font-weight: 700; color: var(--amber); white-space: nowrap; }
-        .hbar-track { height: 8px; background: var(--amber-lt); border-radius: 99px; overflow: hidden; }
+        .hbar-label {
+            display: flex; justify-content: space-between;
+            align-items: flex-start; gap: 8px; margin-bottom: 4px;
+        }
+        .hbar-name  { font-size: 0.81em; color: var(--slate); font-weight: 500; flex: 1; line-height: 1.35; word-break: break-word; }
+        .hbar-count { font-size: 0.81em; font-weight: 700; color: var(--amber); white-space: nowrap; padding-top: 1px; }
+        .hbar-track { height: 7px; background: var(--amber-lt); border-radius: 99px; overflow: hidden; }
         .hbar-fill  { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
 
         /* ── CHARTS ── */
         .chart-wrap    { position: relative; height: 210px; }
         .chart-wrap.sm { height: 180px; }
-        .chart-wrap.lg { height: 260px; }
 
         /* ── RATING ── */
         .rating-display { text-align: center; padding: 10px 0; }
@@ -258,7 +260,7 @@
         }
         .btn-reset:hover { background: var(--teal); color: white; }
 
-        /* ═══════════ VERY SMALL < 380px ═══════════ */
+        /* ═══════════ < 380px ═══════════ */
         @media (max-width: 379px) {
             .header-badge   { display: none; }
             .upload-box     { padding: 28px 14px; }
@@ -281,7 +283,6 @@
             .kpi-label      { font-size: 0.6em; letter-spacing: 0.08em; }
             .chart-wrap     { height: 260px; }
             .chart-wrap.sm  { height: 215px; }
-            .chart-wrap.lg  { height: 320px; }
             .section-gap    { margin-bottom: 16px; }
             .grid-2         { gap: 16px; margin-bottom: 16px; }
             .btn-reset      { width: auto; padding: 13px 36px; display: block; margin: 28px auto 0; }
@@ -295,11 +296,11 @@
             .kpi-strip      { grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
             .section-title  { font-size: 0.95em; }
             .kpi-value      { font-size: 2.3em; }
+            .kpi-label      { font-size: 0.62em; }
             .grid-2         { grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
             .section-gap    { margin-bottom: 20px; }
             .chart-wrap     { height: 280px; }
             .chart-wrap.sm  { height: 230px; }
-            .chart-wrap.lg  { height: 340px; }
         }
     </style>
 </head>
@@ -351,22 +352,22 @@
     <!-- ② KPIs -->
     <div class="kpi-strip section-gap" id="kpiStrip"></div>
 
-    <!-- ③ Primera vez + Cómo se enteró -->
+    <!-- ③ Cómo se enteró + Medio de comunicación -->
     <div class="grid-2 section-gap">
-        <div class="card">
-            <div class="section-title">🎪 ¿Primera vez en un festival?</div>
-            <div class="chart-wrap"><canvas id="chartPrimeraVez"></canvas></div>
-        </div>
         <div class="card">
             <div class="section-title">📣 ¿Cómo se enteraron? <span class="pill">multi</span></div>
             <div id="canalList" class="hbar-list"></div>
         </div>
+        <div class="card">
+            <div class="section-title">📡 Medio que más utilizan <span class="pill">multi</span></div>
+            <div id="medioList" class="hbar-list"></div>
+        </div>
     </div>
 
-    <!-- ④ Medio de comunicación (ancho completo) -->
+    <!-- ④ Festivales deseados (ancho completo) -->
     <div class="card section-gap">
-        <div class="section-title">📡 Medio de comunicación que más utilizan <span class="pill">multi</span></div>
-        <div id="medioList" class="hbar-list"></div>
+        <div class="section-title">🎉 ¿Qué otros festivales desearían? <span class="pill">multi</span></div>
+        <div id="festivalesList" class="hbar-list"></div>
     </div>
 
     <!-- ⑤ Calificación + Mejoras -->
@@ -414,19 +415,19 @@ function handleFile(file) {
     reader.readAsArrayBuffer(file);
 }
 
-// ── Índices de columna (0-based) — Encebollado Fest 30 mayo
+// ── Índices de columna (0-based) — Encebollado Fest 30 mayo (versión actualizada)
 // [0] Marca temporal
 // [1] Encuestador
-// [2] ¿Es la primera vez que asiste a algún Festival?
-// [3] ¿Cómo se enteró del evento?
-// [4] ¿Cuál es el medio de comunicación que más utiliza?
-// [5] ¿Cómo califica el trabajo del alcalde?
-// [6] ¿Qué mejoraría del evento?
+// [2] 1. ¿Cómo se enteró del evento?
+// [3] 2. ¿Cuál es el medio de comunicación que más utiliza?
+// [4] 3. ¿Qué otros festivales le gustaría que se realizaran?  ← NUEVA
+// [5] 4. ¿Cómo califica el trabajo del alcalde?
+// [6] 5. ¿Qué mejoraría del evento?
 const COL = {
     encuestador:  1,
-    primeraVez:   2,
-    canal:        3,
-    medio:        4,
+    canal:        2,
+    medio:        3,
+    festivales:   4,
     calificacion: 5,
     mejora:       6
 };
@@ -440,24 +441,14 @@ function processData(rows) {
     data.forEach(r => { const e = r[COL.encuestador]; encCount[e] = (encCount[e]||0)+1; });
     const encSorted = Object.entries(encCount).sort((a,b) => b[1]-a[1]);
 
-    // Q1 Primera vez
-    const primeraVez = countCol(data, COL.primeraVez);
+    // Q1 Canal (multi-opción)
+    const canalSorted = multiCount(data, COL.canal);
 
-    // Q2 Canal (multi-opción)
-    const canalCount = {};
-    data.forEach(r => {
-        String(r[COL.canal]||'').split(',').map(s=>s.trim()).filter(Boolean)
-            .forEach(c => { canalCount[c] = (canalCount[c]||0)+1; });
-    });
-    const canalSorted = Object.entries(canalCount).sort((a,b) => b[1]-a[1]);
+    // Q2 Medio (multi-opción)
+    const medioSorted = multiCount(data, COL.medio);
 
-    // Q3 Medio de comunicación (multi-opción)
-    const medioCount = {};
-    data.forEach(r => {
-        String(r[COL.medio]||'').split(',').map(s=>s.trim()).filter(Boolean)
-            .forEach(c => { medioCount[c] = (medioCount[c]||0)+1; });
-    });
-    const medioSorted = Object.entries(medioCount).sort((a,b) => b[1]-a[1]);
+    // Q3 Festivales deseados (multi-opción)
+    const festivalesSorted = multiCount(data, COL.festivales);
 
     // Q4 Calificación
     const cals = data.map(r => Number(r[COL.calificacion])).filter(n => !isNaN(n) && n > 0);
@@ -469,13 +460,17 @@ function processData(rows) {
     const mejoraCount = {};
     data.forEach(r => { const v=String(r[COL.mejora]||'').trim(); if(v) mejoraCount[v]=(mejoraCount[v]||0)+1; });
 
-    displayResults({ data, encSorted, primeraVez, canalSorted, medioSorted, avgCal, calDist, mejoraCount });
+    displayResults({ data, encSorted, canalSorted, medioSorted, festivalesSorted, avgCal, calDist, mejoraCount });
 }
 
-function countCol(data, col) {
+// Cuenta respuestas multi-opción separadas por coma
+function multiCount(data, col) {
     const c = {};
-    data.forEach(r => { const v=String(r[col]||'').trim(); if(v) c[v]=(c[v]||0)+1; });
-    return c;
+    data.forEach(r => {
+        String(r[col]||'').split(',').map(s=>s.trim()).filter(Boolean)
+            .forEach(v => { c[v] = (c[v]||0)+1; });
+    });
+    return Object.entries(c).sort((a,b) => b[1]-a[1]);
 }
 
 function renderHbars(containerId, sorted, palette) {
@@ -493,7 +488,7 @@ function renderHbars(containerId, sorted, palette) {
         </div>`).join('');
 }
 
-function displayResults({ data, encSorted, primeraVez, canalSorted, medioSorted, avgCal, calDist, mejoraCount }) {
+function displayResults({ data, encSorted, canalSorted, medioSorted, festivalesSorted, avgCal, calDist, mejoraCount }) {
     uploadSec.style.display  = 'none';
     resultsSec.style.display = 'block';
 
@@ -519,7 +514,7 @@ function displayResults({ data, encSorted, primeraVez, canalSorted, medioSorted,
     });
     document.getElementById('tblEncuestadores').innerHTML = thtml;
 
-    // ② KPIs (5 — sin WhatsApp)
+    // ② KPIs
     document.getElementById('kpiStrip').innerHTML = `
         <div class="kpi"><div class="kpi-label">Total Encuestas</div><div class="kpi-value">${total}</div></div>
         <div class="kpi"><div class="kpi-label">Encuestadores</div><div class="kpi-value">${encSorted.length}</div></div>
@@ -533,18 +528,14 @@ function displayResults({ data, encSorted, primeraVez, canalSorted, medioSorted,
 
     const PALETTE = ['#0F766E','#D97706','#7C3AED','#DC2626','#0369A1','#059669','#C2410C','#1D4ED8'];
 
-    // ③ Primera vez — doughnut
-    buildDoughnut('chartPrimeraVez', primeraVez, PALETTE);
-
-    // ③ Canales — barras
-    renderHbars('canalList', canalSorted, PALETTE);
-
-    // ④ Medio — barras (ancho completo, más espacio)
-    renderHbars('medioList', medioSorted, PALETTE);
+    // ③ Barras
+    renderHbars('canalList',     canalSorted,     PALETTE);
+    renderHbars('medioList',     medioSorted,      PALETTE);
+    renderHbars('festivalesList', festivalesSorted, PALETTE);
 
     // ⑤ Calificación
     const starStr = avgCal>=4.5?'⭐⭐⭐⭐⭐':avgCal>=3.5?'⭐⭐⭐⭐':avgCal>=2.5?'⭐⭐⭐':'⭐⭐';
-    const calVals = [1,2,3,4,5].map(k => calDist[k]||0);
+    const calVals  = [1,2,3,4,5].map(k => calDist[k]||0);
     const calTotal = calVals.reduce((a,b)=>a+b,0);
 
     document.getElementById('ratingBlock').innerHTML = `
@@ -583,47 +574,6 @@ function displayResults({ data, encSorted, primeraVez, canalSorted, medioSorted,
         Object.entries(mejoraCount).sort((a,b)=>b[1]-a[1])
             .map(([n,c]) => `<div class="mejora-tag">${n}<span class="cnt">${c}</span></div>`)
             .join('');
-}
-
-function buildDoughnut(id, countObj, palette) {
-    const entries = Object.entries(countObj);
-    if (!entries.length) return;
-    const total = entries.reduce((a, e) => a + e[1], 0);
-    charts.push(new Chart(document.getElementById(id).getContext('2d'), {
-        type: 'doughnut',
-        data: {
-            labels: entries.map(e => e[0]),
-            datasets: [{
-                data: entries.map(e => e[1]),
-                backgroundColor: palette.slice(0, entries.length),
-                borderColor: '#F8FAFC', borderWidth: 3, hoverOffset: 6
-            }]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false, cutout: '55%',
-            plugins: {
-                legend: { position: 'bottom', labels: { padding: 11, font: { size: 11, family: "'Plus Jakarta Sans'" }, usePointStyle: true } },
-                tooltip: {
-                    callbacks: {
-                        label: ctx => {
-                            const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
-                            return ` ${ctx.label}: ${ctx.parsed} (${pct(ctx.parsed,t)}%)`;
-                        }
-                    }
-                },
-                datalabels: {
-                    color: '#fff', font: { weight: 'bold', size: 11 },
-                    textShadowBlur: 4, textShadowColor: 'rgba(0,0,0,0.35)',
-                    formatter: value => {
-                        const p = ((value / total) * 100).toFixed(0);
-                        return value > 0 ? `${value}\n${p}%` : '';
-                    },
-                    display: ctx => (ctx.dataset.data[ctx.dataIndex] / total) >= 0.06
-                }
-            }
-        },
-        plugins: [ChartDataLabels]
-    }));
 }
 
 function pct(val, total) {
